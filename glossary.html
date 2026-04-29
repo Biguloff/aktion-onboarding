@@ -1,0 +1,2127 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Словарь Актиона — справочник новичка</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #18181b;
+    --ink-soft: #3f3f46;
+    --muted: #71717a;
+    --rule: #e4e4e7;
+    --rule-soft: #f4f4f5;
+    --bg: #fafaf9;
+    --bg-soft: #f4f4f5;
+    --accent: #1d4ed8;
+    --accent-soft: #eff6ff;
+    --accent-text: #1e3a8a;
+    --sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: "JetBrains Mono", "SF Mono", Consolas, monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+
+  body {
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--ink);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection { background: var(--accent); color: white; }
+
+  /* === MASTHEAD === */
+  header.masthead {
+    padding: 64px 0 40px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .masthead .inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  .meta {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    margin-bottom: 20px;
+  }
+
+  h1.title {
+    font-size: clamp(32px, 5vw, 44px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+
+  .subtitle {
+    font-size: 17px;
+    color: var(--muted);
+    margin-bottom: 32px;
+    line-height: 1.5;
+  }
+
+  .intro {
+    padding: 18px 22px;
+    background: var(--bg-soft);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+
+  .intro strong { color: var(--ink); font-weight: 600; }
+
+  /* === LAYOUT === */
+  .layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 56px;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 48px 32px 0;
+  }
+
+  /* === SIDEBAR === */
+  aside.toc {
+    position: sticky;
+    top: 24px;
+    align-self: start;
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+    padding-right: 8px;
+  }
+
+  .toc-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 12px;
+    padding: 0 8px;
+  }
+
+  .toc-list {
+    list-style: none;
+  }
+
+  .toc-list li {
+    margin-bottom: 2px;
+  }
+
+  .toc-list a {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    padding: 6px 8px;
+    font-size: 13.5px;
+    line-height: 1.4;
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-radius: 4px;
+    border-left: 2px solid transparent;
+    transition: all 0.15s ease;
+  }
+
+  .toc-list a:hover {
+    background: var(--bg-soft);
+    color: var(--ink);
+  }
+
+  .toc-list a.active {
+    background: var(--accent-soft);
+    color: var(--accent-text);
+    border-left-color: var(--accent);
+    font-weight: 500;
+  }
+
+  .toc-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    min-width: 24px;
+  }
+
+  .toc-list a.active .toc-num { color: var(--accent); }
+
+  /* === MAIN CONTENT === */
+  main.content {
+    min-width: 0;
+    max-width: 760px;
+  }
+
+  section.chapter {
+    padding-bottom: 56px;
+    margin-bottom: 56px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  section.chapter:last-of-type { border-bottom: none; }
+
+  .ch-kicker {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  h2.ch-title {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    margin-bottom: 14px;
+    color: var(--ink);
+  }
+
+  .ch-lead {
+    font-size: 15.5px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 36px;
+    max-width: 600px;
+  }
+
+  /* === TERMS === */
+  article.term {
+    padding: 24px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  article.term:last-child { border-bottom: none; padding-bottom: 8px; }
+  article.term:first-child { padding-top: 0; }
+
+  .term-head {
+    margin-bottom: 14px;
+  }
+
+  .term-name {
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+
+  .term-alias {
+    display: block;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    font-weight: 400;
+    color: var(--muted);
+    margin-top: 4px;
+    letter-spacing: 0.01em;
+  }
+
+  .layer {
+    padding: 12px 16px;
+    border-radius: 5px;
+    margin-bottom: 6px;
+  }
+
+  .layer.simple { background: var(--bg-soft); }
+  .layer.expert {
+    background: var(--accent-soft);
+    border: 1px solid #dbeafe;
+  }
+
+  .layer-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+
+  .layer.expert .layer-label { color: var(--accent-text); }
+
+  .layer p {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+
+  .layer p + p { margin-top: 8px; }
+
+  .layer strong { color: var(--ink); font-weight: 600; }
+
+  /* === DETAILS === */
+  details.deeper {
+    margin-top: 8px;
+    border-top: 1px dashed var(--rule);
+    padding-top: 10px;
+  }
+
+  details.deeper summary {
+    list-style: none;
+    cursor: pointer;
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    padding: 4px 0;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.15s ease;
+  }
+
+  details.deeper summary:hover { color: var(--accent); }
+  details.deeper summary::-webkit-details-marker { display: none; }
+
+  details.deeper summary::before {
+    content: "+";
+    width: 16px;
+    height: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--muted);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    transition: all 0.2s ease;
+  }
+
+  details.deeper[open] summary::before {
+    content: "−";
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .deeper-body {
+    padding: 14px 0 4px 24px;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    border-left: 1px solid var(--rule);
+    margin-left: 7px;
+    padding-left: 16px;
+  }
+
+  .deeper-body p + p { margin-top: 12px; }
+  .deeper-body strong { color: var(--ink); font-weight: 600; }
+  .deeper-body code,
+  .layer code,
+  .intro code {
+    font-family: var(--mono);
+    font-size: 0.86em;
+    background: rgba(24, 24, 27, 0.06);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--ink);
+  }
+  .deeper-body ul { margin: 10px 0 0 18px; }
+  .deeper-body li { margin-bottom: 4px; }
+
+  /* === GLOSSARY === */
+  .glossary-section {
+    padding-top: 8px;
+    padding-bottom: 56px;
+    margin-bottom: 56px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .gloss-letter {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin: 32px 0 4px;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .gloss-letter:first-of-type {
+    margin-top: 8px;
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .gloss-entry {
+    display: grid;
+    grid-template-columns: 240px 1fr 64px;
+    gap: 20px;
+    padding: 14px 0;
+    align-items: baseline;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+
+  .gloss-entry:last-of-type {
+    border-bottom: none;
+  }
+
+  .gloss-name {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--ink);
+    text-decoration: none;
+    line-height: 1.4;
+  }
+
+  .gloss-name:hover {
+    color: var(--accent);
+  }
+
+  .gloss-def {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  .gloss-loc {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 700px) {
+    .gloss-entry {
+      grid-template-columns: 1fr;
+      gap: 4px;
+      padding: 12px 0;
+    }
+    .gloss-loc { text-align: left; }
+  }
+
+  /* === FINAL NOTE === */
+  .final-note {
+    max-width: 760px;
+    margin: 32px auto 0;
+    padding: 20px 24px;
+    background: var(--bg-soft);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+  }
+
+  .final-note .label {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-text);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .final-note p {
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+
+  .final-note strong { color: var(--ink); font-weight: 600; }
+
+  /* === FOOTER === */
+  footer.colophon {
+    margin-top: 80px;
+    padding: 48px 0;
+    background: #fafaf9;
+    border-top: 1px solid var(--rule);
+  }
+
+  .colophon-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  .colophon h3 {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+
+  .colophon-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  .colophon-grid h4 {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+
+  .colophon-grid p {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 900px) {
+    .layout {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      padding: 32px 20px 0;
+    }
+    aside.toc {
+      position: static;
+      max-height: none;
+      padding: 16px 12px;
+      background: var(--bg-soft);
+      border-radius: 8px;
+      margin-bottom: 24px;
+    }
+    .colophon-grid { grid-template-columns: 1fr; gap: 24px; }
+    .masthead .inner { padding: 0 20px; }
+    main.content { max-width: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav style="border-bottom: 1px solid var(--rule); padding: 14px 0; position: sticky; top: 0; z-index: 50; backdrop-filter: saturate(180%) blur(8px); background-color: rgba(250, 250, 249, 0.85);">
+  <div style="max-width: 1100px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 12px;">
+    <a href="index.html" style="color: var(--ink); font-weight: 600; text-decoration: none;"><span style="color: var(--accent); margin-right: 8px;">●</span>aktion-onboarding</a>
+    <div style="display: flex; gap: 22px;">
+      <a href="index.html" style="color: var(--muted); text-decoration: none;">← Главная</a>
+      <a href="https://github.com/Biguloff/aktion-onboarding" target="_blank" style="color: var(--muted); text-decoration: none;">GitHub →</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ════ MASTHEAD ════ -->
+<header class="masthead">
+  <div class="inner">
+    <div class="meta">29 апреля 2026 · Том I · Для нового сотрудника</div>
+    <h1 class="title">Словарь Актиона</h1>
+    <p class="subtitle">Справочник технологий, на которые тебя спросят на стендапе. Прочитай по верху сегодня — раскроешь главы по мере необходимости.</p>
+    <div class="intro">
+      <strong>Как читать.</strong> Каждый термин разложен в три слоя. <strong>На пальцах</strong> — короткая аналогия, чтобы понять суть за 30 секунд. <strong>Что спросить экспертом</strong> — конкретная формулировка в их жаргоне, которую можно произнести дословно. <strong>Глубже</strong> — раскрываешь, когда сядешь учить всерьёз. Сначала пройди по верху один раз — этого хватит для первой недели.
+    </div>
+  </div>
+</header>
+
+<!-- ════ LAYOUT: TOC + CONTENT ════ -->
+<div class="layout">
+
+  <aside class="toc">
+    <div class="toc-label">Содержание</div>
+    <ol class="toc-list">
+      <li><a href="#ch1"><span class="toc-num">I</span>Инфраструктура и контейнеры</a></li>
+      <li><a href="#ch2"><span class="toc-num">II</span>CI/CD и секреты</a></li>
+      <li><a href="#ch3"><span class="toc-num">III</span>Хранилища и базы данных</a></li>
+      <li><a href="#ch4"><span class="toc-num">IV</span>Сообщения и фоновые задачи</a></li>
+      <li><a href="#ch5"><span class="toc-num">V</span>API и контракты</a></li>
+      <li><a href="#ch6"><span class="toc-num">VI</span>Бэкенд: .NET и Python</a></li>
+      <li><a href="#ch7"><span class="toc-num">VII</span>Фронтенд и AI-стек</a></li>
+      <li><a href="#ch8"><span class="toc-num">VIII</span>Аутентификация и SSO</a></li>
+      <li><a href="#ch9"><span class="toc-num">IX</span>LLM, эмбеддинги, провайдеры</a></li>
+      <li><a href="#ch10"><span class="toc-num">X</span>Транскрипция и аудио</a></li>
+      <li><a href="#ch11"><span class="toc-num">XI</span>Качество и observability</a></li>
+      <li><a href="#ch12"><span class="toc-num">XII</span>152-ФЗ и регуляторика</a></li>
+      <li><a href="#glossary"><span class="toc-num">§</span>Глоссарий А–Я</a></li>
+    </ol>
+  </aside>
+
+  <main class="content">
+
+    <!-- ═══ CHAPTER I ═══ -->
+    <section class="chapter" id="ch1">
+      <div class="ch-kicker">Глава I</div>
+      <h2 class="ch-title">Инфраструктура и контейнеры</h2>
+      <p class="ch-lead">Где живут наши сервисы. Контейнеры, оркестратор, стандартизация деплоя.</p>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">Docker</div>
+          <span class="term-alias">контейнер · образ · image</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>Docker — это упаковка обеда в одноразовый контейнер. Берёшь приложение со всеми его библиотеками, базами и настройками, кладёшь в герметичную коробку. Эта коробка одинаково запустится у тебя на ноуте, на сервере коллеги и в проде.</p>
+          <p><strong>Образ</strong> (image) — запечатанная коробка. <strong>Контейнер</strong> — образ, который сейчас работает.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«У вас corporate Docker registry или используете публичный? Какой базовый образ для Node-сервисов — Alpine, Distroless или Debian-slim? Подписываете ли образы и есть ли scan на CVE в pipeline?»</p>
+        </div>
+        <details class="deeper">
+          <summary>Глубже</summary>
+          <div class="deeper-body">
+            <p>Docker-контейнер — это процесс на твоём Linux-хосте, который видит изолированную файловую систему, сеть и список процессов (это делается через kernel namespaces и cgroups). Образ описан декларативно в <code>Dockerfile</code>: набор команд (<code>FROM</code>, <code>COPY</code>, <code>RUN</code>, <code>CMD</code>), которые слой за слоем строят финальную ФС.</p>
+            <p>Слои кэшируются: если ты не менял <code>package.json</code>, шаг с установкой зависимостей не пересчитывается. Это критично для скорости CI/CD.</p>
+            <p>В проде образы хранят в <strong>Docker registry</strong> — это HTTP-сервер с тегами и версионированием. Публичные — Docker Hub, GHCR. Корпоративные — Harbor, Nexus, GitLab Container Registry. У Актиона почти наверняка свой.</p>
+          </div>
+        </details>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">Kubernetes</div>
+          <span class="term-alias">k8s · «кубер»</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>Kubernetes — дирижёр для оркестра контейнеров. У тебя 50 контейнеров, они работают на 8 серверах. Если один сервер сгорел — Kubernetes молча перезапустит контейнеры на оставшихся. Если нагрузка растёт — поднимет ещё.</p>
+          <p>Произносится «куберне́тис», коротко — «куб» или «кубер». Конфиги в YAML.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«Какой у вас Kubernetes — managed (Yandex Cloud / SberCloud / VK Cloud) или self-hosted? Какая версия и есть ли стандартный namespace для пилотов? Как у вас секреты — нативно через Secret или подкачиваются из Vault через CSI driver?»</p>
+        </div>
+        <details class="deeper">
+          <summary>Глубже</summary>
+          <div class="deeper-body">
+            <p><strong>Pod</strong> — наименьшая единица работы. Один или несколько контейнеров, делящих сеть и тома.</p>
+            <p><strong>Deployment</strong> — декларация: «хочу, чтобы всегда было N подов с такой-то картинкой». Под умер — Deployment поднимет новый.</p>
+            <p><strong>Service</strong> — стабильный сетевой адрес для группы подов.</p>
+            <p><strong>Ingress</strong> — правила «как из интернета попасть на нужный Service». Часто реализован через nginx или Traefik.</p>
+            <p><strong>Namespace</strong> — логическая папка. У Актиона будут namespaces вроде <code>main-buh</code>, <code>kadry</code>, <code>action-tech-dev</code>.</p>
+            <p><strong>ConfigMap / Secret</strong> — конфиги и пароли, которые подмонтируются в под как файлы или переменные окружения.</p>
+          </div>
+        </details>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">Helm</div>
+          <span class="term-alias">chart · values.yaml</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>Helm — рецепт IKEA для приложений в Kubernetes. Вместо того чтобы каждый раз писать 12 YAML-файлов руками, ты пишешь один шаблон (chart) с пробелами под параметры. Потом просто говоришь: «собери из этого chart-а конкретное приложение со значениями A, B, C».</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«У вас принят Helm для деплоя или используете Kustomize / ArgoCD App-of-Apps? Есть ли внутренний umbrella-chart, под который мне надо притереться?»</p>
+        </div>
+        <details class="deeper">
+          <summary>Глубже</summary>
+          <div class="deeper-body">
+            <p>Chart — папка с шаблонами Kubernetes-объектов и одним <code>values.yaml</code>, где лежат значения по умолчанию. При установке (<code>helm install my-release ./chart -f prod-values.yaml</code>) Helm подставляет значения в шаблоны и применяет к кластеру.</p>
+            <p>Альтернатива — <strong>Kustomize</strong> (нативный в kubectl, без шаблонов, оверлеи) и <strong>ArgoCD</strong> / <strong>FluxCD</strong> (GitOps — кластер сам подтягивает то, что лежит в Git).</p>
+            <p>В крупных компаниях обычно есть golden chart — внутренний шаблон с уже прописанными вещами вроде сервис-меша, метрик, лейблов.</p>
+          </div>
+        </details>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">Pod / Dev-pod</div>
+          <span class="term-alias">эфемерная среда</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>Pod — самый маленький юнит в Kubernetes. «Dev-pod» — это «выделите мне одно живое место в общем dev-кластере, чтобы я там мог развернуть свою недопеченную версию и показать команде».</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«Можно мне один namespace в dev-кластере под пилот? Какой Helm-чарт-стандарт у вас для одиночного веб-сервиса?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">Managed vs Self-hosted</div>
+          <span class="term-alias">облако vs своё железо</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p><strong>Managed</strong> — арендуешь готовый Kubernetes у облака (Yandex Cloud, SberCloud, VK Cloud). Они следят за master-нодами, обновлениями, бэкапами. Ты только деплоишь.</p>
+          <p><strong>Self-hosted</strong> — кластер на собственном железе. Сами держите его в форме, но не платите облаку и данные не уходят за периметр (что важно для 152-ФЗ).</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«У вас self-hosted Kubernetes на своих ЦОДах или managed на каком-то российском облаке? Если managed — какая SLA у control plane?»</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- ═══ CHAPTER II ═══ -->
+    <section class="chapter" id="ch2">
+      <div class="ch-kicker">Глава II</div>
+      <h2 class="ch-title">CI/CD и секреты</h2>
+      <p class="ch-lead">Как код от тебя на ноуте за десять минут оказывается в проде, и почему пароли от баз не лежат рядом с кодом.</p>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">CI/CD</div>
+          <span class="term-alias">continuous integration · delivery</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p><strong>CI</strong> (Continuous Integration) — каждый раз, когда ты пушишь код, автомат запускает тесты и сборку. Ничего не сломал — пропускает.</p>
+          <p><strong>CD</strong> (Continuous Delivery / Deployment) — после успешного CI автомат сам выкатывает новую версию в нужное окружение (dev → staging → prod).</p>
+          <p>Это конвейерная лента от твоего <code>git push</code> до пользователя. Цель — чтобы релиз был дешёвым событием.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«Какой стандарт CI/CD — GitLab CI, GitHub Actions или TeamCity? Trunk-based или вы на feature-branches? Кто owner pipeline-шаблона, который должен подключить новый сервис?»</p>
+        </div>
+        <details class="deeper">
+          <summary>Глубже</summary>
+          <div class="deeper-body">
+            <p><strong>GitLab CI</strong> — самый частый в РФ enterprise. Конфигурация в <code>.gitlab-ci.yml</code> в корне репозитория. Этапы (stages) → джобы (jobs) → шаги. Запускается на runners (агентах) — это могут быть docker-машины или kubernetes pods.</p>
+            <p><strong>GitHub Actions</strong> — для проектов на GitHub. Конфиг в <code>.github/workflows/*.yml</code>. Аналогично, но больше готовых reusable-actions из marketplace.</p>
+            <p><strong>TeamCity</strong> от JetBrains — старая школа, до сих пор живёт в крупных банках и .NET-командах. Конфиг через UI или Kotlin DSL.</p>
+            <p>Современный паттерн: trunk-based development — все коммитят в main, фичи под флагами. Альтернатива — feature-branches с PR review. У Актиона в .NET-команде, скорее всего, второе.</p>
+          </div>
+        </details>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">Vault</div>
+          <span class="term-alias">HashiCorp Vault · сейф</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>Vault — банковский сейф для паролей, ключей API, сертификатов. Сервисы при старте лезут туда с авторизацией и забирают свои секреты. Главное правило: пароля никогда нет в коде.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«У вас секреты через Vault, через нативные Kubernetes Secrets с шифрованием на стороне etcd, или своё решение? Как мне получить доступ к секретам моего сервиса?»</p>
+        </div>
+        <details class="deeper">
+          <summary>Глубже</summary>
+          <div class="deeper-body">
+            <p>Vault от HashiCorp — индустриальный стандарт. Поддерживает динамические креды (генерит временный пароль для базы на каждый запрос), rotation, audit log, шифрование как сервис.</p>
+            <p>Интеграция с Kubernetes — через <strong>Vault Agent Injector</strong> или <strong>CSI Secrets Driver</strong>: ты в манифесте пишешь аннотацию, и поды получают секреты как файлы или env-переменные.</p>
+            <p>Альтернативы: AWS Secrets Manager, Yandex Lockbox, Doppler, Infisical. В .NET-мире часто Azure Key Vault.</p>
+          </div>
+        </details>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">SOPS</div>
+          <span class="term-alias">Mozilla SOPS · encrypted files</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>SOPS — «зашифровать YAML-файл с секретами и закоммитить его в Git». В отличие от Vault, который — отдельный сервер, SOPS не нужен живой сервис: просто файл на диске, расшифровывается ключом из KMS / age / GPG.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«Используете SOPS + age с ArgoCD, или у вас всё через Vault? Куда мне прописать секреты для своего пилота?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">Docker Registry</div>
+          <span class="term-alias">Harbor · GitLab Registry · GHCR</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>Корпоративная полка для собранных Docker-образов. CI собрал образ — пушит сюда. Kubernetes хочет развернуть — забирает отсюда. Корпоративный Registry нужен, чтобы образы не утекали наружу и были scan-ируемы на уязвимости.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«Какой у вас corporate registry — Harbor, GitLab Container Registry, что-то ещё? Подписываете образы (Cosign / Notary)? Есть Trivy/Snyk-сканер на CVE?»</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- ═══ CHAPTER III ═══ -->
+    <section class="chapter" id="ch3">
+      <div class="ch-kicker">Глава III</div>
+      <h2 class="ch-title">Хранилища и базы данных</h2>
+      <p class="ch-lead">Где лежат данные. Оперативное (блокнот на столе), архивное (стеллаж в подвале), аналитическое (картотека для отчётов).</p>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">PostgreSQL</div>
+          <span class="term-alias">postgres · pg</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>Postgres — основная картотека: таблицы, строки, столбцы, связи. Когда приложению надо «найти юзера по email и его последние 10 заказов» — это туда. Самая популярная open-source реляционная БД, де-факто стандарт у Актиона.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«У вас Postgres single-master с реплика́ми, или Patroni-кластер? Какая версия? Принято ли snake_case для имён таблиц как в EF? Какой максимальный размер БД у одного бизнес-приложения?»</p>
+        </div>
+        <details class="deeper">
+          <summary>Глубже</summary>
+          <div class="deeper-body">
+            <p>Postgres ~16-я версия в 2026. Поддерживает: транзакции (ACID), JSON-поля, полнотекстовый поиск, расширения (pgvector, PostGIS, TimescaleDB).</p>
+            <p>В .NET-мире чаще говорят «Postgres + EF Core». ORM мапит C#-классы на таблицы. Соглашение об именах — snake_case в БД, PascalCase в коде, конвертация автоматом.</p>
+            <p><strong>Row-Level Security (RLS)</strong> — встроенная фича, которая позволяет ограничить, какие строки видит конкретный пользователь / тенант. Для нашего юз-кейса (мульти-тенантность по бизнес-юнитам Актиона) — пишется один раз, потом не думаешь.</p>
+          </div>
+        </details>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">pgvector</div>
+          <span class="term-alias">векторные эмбеддинги в Postgres</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>pgvector — расширение Postgres, которое умеет хранить «смысл текста в виде числа». Точнее — массив из ~1000 чисел (вектор-эмбеддинг). И искать похожие по смыслу документы, а не похожие по словам.</p>
+          <p>Для чата с поиском по корпусу звонков — это движок поиска. До 5–10 миллионов векторов pgvector справляется в той же Postgres.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«У вас pgvector уже включён в стандартной Postgres-сборке Актиона, или поднимать самому? Используете HNSW-индексы или IVFFlat?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">ORM</div>
+          <span class="term-alias">EF Core · Drizzle · Prisma · SQLAlchemy</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>ORM (Object-Relational Mapper) — переводчик между «классы в коде» и «таблицы в БД». Вместо сырого SQL пишешь <code>db.users.where({id: 5}).leftJoin('orders')</code>, ORM генерирует SQL и возвращает объекты.</p>
+          <p>В .NET — <strong>Entity Framework Core</strong>. В TS — <strong>Drizzle</strong> (легковесный) или Prisma (мощный, тяжёлый). В Python — SQLAlchemy.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«У вас стандарт EF Core с code-first миграциями? Есть ли соглашение по именованию таблиц и колонок (snake_case vs PascalCase в БД)?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">Object Storage / S3</div>
+          <span class="term-alias">бакеты · MinIO · Yandex Object Storage</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>S3-совместимое объектное хранилище — огромный диск в облаке для больших файлов (аудио, видео, бэкапы). Каждый файл — объект с уникальным ключом. Не путать с файловой системой: тут нет папок, только префиксы.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«Куда вы кладёте крупные blob-ы — Yandex Object Storage, VK Cloud Object Storage, MinIO on-prem? Как у вас устроены presigned URLs для прямой загрузки от клиента?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">Greenplum + Airflow + Superset</div>
+          <span class="term-alias">аналитический контур</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>Связка для отчётов и аналитики. <strong>Greenplum</strong> — массивно-параллельный Postgres для гигантских объёмов. <strong>Airflow</strong> — оркестратор пайплайнов («каждую ночь забери из 10 систем, склей, посчитай метрики»). <strong>Superset</strong> — BI-дашборды поверх результата.</p>
+          <p>У Актиона их использует data-команда. Тебе важно знать, что туда они ждут события или готовые таблицы, а не онлайн-запросы.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«Хотите видеть наши результаты аудиоконтроля в Greenplum для дашбордов? В каком формате забираете — CDC из Postgres, события в Kafka, или ETL по расписанию?»</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- ═══ CHAPTER IV ═══ -->
+    <section class="chapter" id="ch4">
+      <div class="ch-kicker">Глава IV</div>
+      <h2 class="ch-title">Сообщения и фоновые задачи</h2>
+      <p class="ch-lead">Сервисы редко работают в одиночку. Каналы общения и фоновые ленты задач.</p>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">Apache Kafka</div>
+          <span class="term-alias">topic · producer · consumer · event log</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>Kafka — газета, в которую сервисы пишут события («звонок такой-то расшифрован», «оператор оценил cell как pass»). Любой другой сервис, который хочет читать газету, подписывается на тему (topic). События живут в логе долго — можно «отмотать» и пере-прочитать.</p>
+          <p>Producer — кто пишет. Consumer — кто читает. Topic — название рубрики.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«Какие имена топиков у вас приняты — иерархическая нотация типа <code>action.calls.transcribed.v1</code>? Используете Schema Registry с Avro / Protobuf? Какая retention-политика и сколько партиций по умолчанию?»</p>
+        </div>
+        <details class="deeper">
+          <summary>Глубже</summary>
+          <div class="deeper-body">
+            <p>Kafka устроена как распределённый журнал коммитов. Сообщения в топике делятся на партиции (для параллелизма), каждое сообщение получает offset. Consumer держит свой курсор и читает последовательно.</p>
+            <p>В отличие от RabbitMQ, Kafka не «доставляет и забывает» — она хранит. Это позволяет (а) много consumer-групп читать один и тот же поток для разных целей, (б) восстанавливать состояние с нуля, перечитав историю.</p>
+            <p><strong>Schema Registry</strong> — отдельный сервис, который хранит схемы сообщений (Avro/Proto/JSON-Schema) и проверяет совместимость при изменениях. Без неё через полгода никто не помнит, какое поле в каком топике что значит.</p>
+          </div>
+        </details>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">RabbitMQ</div>
+          <span class="term-alias">очередь · exchange · queue</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>RabbitMQ — почтовое отделение. Producer кладёт письмо, RabbitMQ доставляет одному или нескольким consumer-ам, после прочтения письмо удаляется. Хорошо для «выполни задачу один раз»: «отправь email», «зарегистрируй платёж».</p>
+          <p>Отличие от Kafka: RabbitMQ — для команд (do this), Kafka — для событий (this happened).</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«Где у вас граница между Kafka и RabbitMQ — события идут в Kafka, асинхронные команды в Rabbit? Используете ли dead-letter-queues и как организована retry-политика?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">Redis</div>
+          <span class="term-alias">кеш · in-memory store</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>Redis — оперативный блокнот: in-memory хранилище ключ-значение, мгновенный отклик. Используют для кэша (запрос к базе медленный — закэшируем), сессий, rate-limiting, и часто как backend для очередей задач (BullMQ, Sidekiq).</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«У вас Redis-кластер общий или у каждого сервиса свой инстанс? Sentinel или Cluster mode? Поддержите ли вы Redis Streams под наш батч-воркер?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">BullMQ / Trigger.dev</div>
+          <span class="term-alias">очереди задач в Node.js</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>BullMQ — библиотека для Node.js, которая поверх Redis даёт «положить задачу в очередь, потом отдельный воркер её возьмёт и выполнит». Идеально для нашего «прогнать критерий по 50 транскриптам»: ставим 50 джобов, воркер ест их параллельно, прогресс видно.</p>
+          <p>Trigger.dev — следующее поколение: durable workflows (выживают перезапусков), встроенная dashboard, retries. Альтернативы — Temporal, Inngest, Hatchet.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«У .NET-команды для фоновых задач что используется — Hangfire, MassTransit, что-то на Kafka? В каком виде нам отдавать результат — INSERT в их Postgres-таблицу, событие в Kafka, что-то ещё?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">Avro / Protobuf</div>
+          <span class="term-alias">бинарные схемы сообщений</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>Форматы описания структуры сообщений в Kafka и gRPC. Вместо «JSON и надейся» — строгая схема: «здесь поле <code>call_id</code> типа UUID, здесь <code>duration_ms</code> типа int64». Старая версия читателя должна быть совместима с новой версией писателя.</p>
+          <p>Avro — popular в data-engineering. Protobuf — у Google и в gRPC.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«Какой формат вы приняли для Kafka-сообщений — Avro со Schema Registry, Protobuf, или плоский JSON? Как у вас организована эволюция схемы — backward / forward / full compatibility?»</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- ═══ CHAPTER V ═══ -->
+    <section class="chapter" id="ch5">
+      <div class="ch-kicker">Глава V</div>
+      <h2 class="ch-title">API и контракты</h2>
+      <p class="ch-lead">Когда два сервиса встречаются — им надо договориться о языке. Этот язык называется контрактом.</p>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">REST</div>
+          <span class="term-alias">HTTP API · resources</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>REST — самый распространённый стиль HTTP-API. Адреса описывают ресурсы (<code>/calls/123</code>), методы — действия (<code>GET</code> прочитать, <code>POST</code> создать, <code>PUT</code> обновить, <code>DELETE</code> удалить). Тело — JSON.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«У вас принят REST + JSON или есть зоны gRPC? Куда коммитим OpenAPI-спеку — в репозиторий сервиса или в централизованный API-каталог?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">OpenAPI</div>
+          <span class="term-alias">Swagger · openapi.yaml</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>OpenAPI — стандарт описания REST-API в одном YAML-файле: какие endpoints, какие параметры, какие ответы. По этому файлу автоматически генерируется документация (Swagger UI), клиенты на десятках языков, mock-серверы. Версия 3.1 — текущая.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«Используете OpenAPI 3.1? Генерируете клиентов автоматом — на TS через openapi-typescript, на C# через NSwag / Kiota? Есть ли централизованная portal-страница со всеми API?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">gRPC</div>
+          <span class="term-alias">бинарный RPC · Protobuf</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>gRPC — альтернатива REST для сервис-сервис коммуникации внутри кластера. Бинарный протокол поверх HTTP/2, описание интерфейса в <code>.proto</code> файлах, кодогенерация клиентов и серверов. Заметно быстрее JSON-REST на больших нагрузках.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«У вас межсервисное общение по REST или есть зоны gRPC? Если да — proto-файлы лежат в общем репозитории или у каждого сервиса свои?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">Микросервисы vs Монолит</div>
+          <span class="term-alias">архитектурный паттерн</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p><strong>Монолит</strong> — одно большое приложение, все фичи в одном процессе. Просто, быстро запускать, тяжелее масштабировать.</p>
+          <p><strong>Микросервисы</strong> — десятки маленьких сервисов, общающихся по сети (REST/gRPC/Kafka). Каждый можно масштабировать и деплоить отдельно. Цена — операционная сложность.</p>
+          <p>В вакансиях Action Tech упоминается микросервисная архитектура.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«Какой принцип нарезки сервисов — по доменам (DDD, bounded contexts) или по техническим возможностям? Где у вас живёт сейчас сервис расшифровок звонков?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">API contract-first</div>
+          <span class="term-alias">spec-first development</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>Подход: сначала пишут OpenAPI-спеку (контракт), согласуют между командами, потом каждая команда генерирует свой код от спеки. Альтернатива — code-first, когда спека генерируется из готового кода.</p>
+          <p>Contract-first выгоден на стыках разных стеков (наш Next.js пилот → их .NET-сервис).</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«У вас принят contract-first? Где хранится Source-of-truth спека для нашего сервиса — отдельный репо <code>action-api-specs</code>?»</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- ═══ CHAPTER VI ═══ -->
+    <section class="chapter" id="ch6">
+      <div class="ch-kicker">Глава VI</div>
+      <h2 class="ch-title">Бэкенд: миры .NET и Python</h2>
+      <p class="ch-lead">У Актиона два мира на бэкенде. Прод-handover нашего пилота, скорее всего, пойдёт в .NET-команду.</p>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">.NET / ASP.NET Core</div>
+          <span class="term-alias">C# · dotnet 8 / 9</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>.NET — платформа от Microsoft, на которой пишут на C#. <strong>ASP.NET Core</strong> — фреймворк для веб-сервисов поверх неё. Похож на Spring (Java), Django (Python), Express (Node) по роли. Кроссплатформенный, шустрый, любит контейнеры.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«Какая версия .NET — 8 LTS или 9? Используете Minimal APIs или классические Controllers? Какие NuGet-пакеты у вас стандартные (MediatR, FluentValidation, Mapster)? Какой шаблон для нового сервиса?»</p>
+        </div>
+        <details class="deeper">
+          <summary>Глубже</summary>
+          <div class="deeper-body">
+            <p><strong>NuGet</strong> — пакетный менеджер для .NET (как npm для Node, pip для Python). Зависимости описываются в <code>.csproj</code>.</p>
+            <p>Современный паттерн: <strong>Minimal APIs</strong> (всё описывается в Program.cs декларативно), либо классический <strong>Controller</strong>-паттерн (для крупных контроллеров). MediatR — популярная либа для CQRS-подхода.</p>
+            <p>Тестирование — xUnit / NUnit, моки через Moq / NSubstitute.</p>
+            <p>Деплой — обычно multistage Dockerfile: <code>sdk</code> для сборки, <code>aspnet</code> или <code>aspnet-alpine</code> для рантайма.</p>
+          </div>
+        </details>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">Entity Framework Core</div>
+          <span class="term-alias">EF Core · DbContext · миграции</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>EF Core — официальный ORM от Microsoft для C#. Описываешь классы (entities) и контекст (DbContext), EF строит таблицы и переводит запросы в SQL. Code-first миграции — изменения в коде → команда <code>dotnet ef migrations add</code> → применяется к БД.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«У вас code-first или DB-first подход? Какое соглашение по именованию — snake_case в БД или PascalCase? Где хранятся миграции — в репозитории сервиса или централизованно?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">Python · FastAPI</div>
+          <span class="term-alias">Pydantic · uvicorn · Poetry</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>В Python-мире для веб-API сейчас стандарт — <strong>FastAPI</strong> (асинхронный, с типизацией через Pydantic, автогенерация OpenAPI). У data-команды Актиона Python используется в data-pipelines (Airflow), не для пользовательских API.</p>
+          <p>Если позже мы выделим тяжёлый ML-воркер (STT, диаризация) — он, скорее всего, будет именно на FastAPI.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«У data-команды Python какой версии и менеджер зависимостей — Poetry, uv, pip-tools? Развёрнуты ли уже какие-то ML-воркеры в k8s или всё в Airflow?»</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- ═══ CHAPTER VII ═══ -->
+    <section class="chapter" id="ch7">
+      <div class="ch-kicker">Глава VII</div>
+      <h2 class="ch-title">Фронтенд и AI-стек</h2>
+      <p class="ch-lead">То, что увидит методолог в браузере — это наш Next.js. Tailwind + shadcn/ui для скорости. Vercel AI SDK для стриминга LLM.</p>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">TypeScript</div>
+          <span class="term-alias">TS · типизированный JavaScript</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>TypeScript — JavaScript + строгая типизация. Пишешь <code>function getUser(id: number): User</code>, и компилятор ругается, если ты передал строку. Помогает не сломать всё при рефакторинге, особенно в большом проекте.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«У вас strict mode TS включён, какие аналитические правила — biome / eslint / prettier? Используете zod / valibot для рантайм-валидации?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">React · Next.js · App Router</div>
+          <span class="term-alias">RSC · Server Components</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p><strong>React</strong> — библиотека для UI: разбиваешь интерфейс на компоненты. <strong>Next.js</strong> — фреймворк поверх React, который добавляет роутинг, серверный рендеринг и backend API в одном репозитории.</p>
+          <p><strong>App Router</strong> — современный режим Next.js (с v13+). Файловая структура определяет URL: папка <code>/app/calls/[id]/page.tsx</code> — страница <code>/calls/123</code>.</p>
+          <p><strong>Server Components</strong> — компоненты, которые рендерятся на сервере и не отправляют JavaScript в браузер, если он не нужен.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«У вас Next.js какой версии, App Router или Pages Router? Есть ли стандартный design system или каждый проект сам?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">Tailwind CSS</div>
+          <span class="term-alias">utility-first CSS</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>Tailwind — CSS-фреймворк, в котором ты не пишешь классы со своими именами, а складываешь из готовых атомов прямо в HTML: <code>class="flex items-center gap-2 p-4 bg-white"</code>. Быстро, согласованно, без отдельных <code>.css</code> файлов.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«У вас Tailwind v4 или v3, есть ли corporate preset с фирменными цветами Актиона?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">shadcn/ui</div>
+          <span class="term-alias">copy-paste components · Radix</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>shadcn/ui — не библиотека, а коллекция готовых компонентов (кнопки, диалоги, дропдауны), которые ты копируешь к себе в проект. Построены на Radix UI (доступность из коробки) и Tailwind. В отличие от Material UI / Ant Design — нет npm-зависимости, всё твой код, можно править.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«У других ваших проектов shadcn/ui используется? Есть готовые блоки, которые я могу взять — например, AI-чат с сайдбаром?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">Vercel AI SDK</div>
+          <span class="term-alias">streamText · useChat · tool calling</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>AI SDK — библиотека для подключения LLM в Next.js. Даёт две главные штуки: серверная функция <code>streamText()</code> (вызвать модель и вернуть стриминговый ответ) и клиентский хук <code>useChat()</code> (UI-состояние чата). Поддерживает 25+ провайдеров.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«Кто-то на фронте у вас уже работал с Vercel AI SDK v5? Есть ли стандартная политика по выбору LLM-провайдера в коде?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">Streaming · SSE · WebSocket</div>
+          <span class="term-alias">Server-Sent Events</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>Когда LLM генерирует ответ — мы хотим видеть его слово за словом, не ждать всего сразу. <strong>SSE (Server-Sent Events)</strong> — простейший способ: HTTP-соединение, которое сервер не закрывает и шлёт события по мере готовности.</p>
+          <p><strong>WebSocket</strong> — двунаправленный канал, нужен только когда клиент тоже постоянно шлёт сообщения. Для чата с LLM избыточен.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«У вас на k8s ingress поддерживает long-lived SSE соединения? Какой timeout по умолчанию у nginx / Envoy в кластере?»</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- ═══ CHAPTER VIII ═══ -->
+    <section class="chapter" id="ch8">
+      <div class="ch-kicker">Глава VIII</div>
+      <h2 class="ch-title">Аутентификация и SSO</h2>
+      <p class="ch-lead">Сотрудник входит один раз корпоративным аккаунтом, потом ходит по десяти внутренним сервисам без повторного ввода пароля.</p>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">SSO</div>
+          <span class="term-alias">single sign-on</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>Single Sign-On — «один раз вошёл — везде свой». Сотрудник Актиона логинится в корпоративный портал, и для всех внутренних сервисов он уже идентифицирован.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«У вас SSO на базе чего — Keycloak, Authentik, ADFS, Active Directory + LDAP? Когда подключим наш пилот к корпоративному Identity Provider, какой у вас процесс — самообслуживание через UI или заявка в ИБ?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">OIDC · OAuth 2.0</div>
+          <span class="term-alias">OpenID Connect</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p><strong>OAuth 2.0</strong> — стандарт «дай этому приложению доступ от моего имени» (про авторизацию). <strong>OpenID Connect (OIDC)</strong> — надстройка, которая ещё и говорит «вот кто этот пользователь» (про аутентификацию). Современный SSO почти всегда — OIDC.</p>
+          <p>Поток: приложение редиректит на Identity Provider → юзер логинится → IdP редиректит обратно с токеном → приложение проверяет подпись и доверяет.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«Какой OIDC-flow используете — Authorization Code with PKCE? Какие scopes стандартные? Где забирать корпоративный <code>discovery URL</code> для нашего пилота?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">SAML</div>
+          <span class="term-alias">старый школьный SSO</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>SAML — предшественник OIDC, всё то же самое, но XML вместо JSON, и сложнее в настройке. До сих пор живёт в крупном enterprise. Если у Актиона SAML — это нормально, просто Auth.js придётся настраивать чуть тщательнее.</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">Keycloak</div>
+          <span class="term-alias">Red Hat IdP · самый частый в РФ</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>Keycloak — open-source Identity Provider от Red Hat. Самый распространённый в российском enterprise: умеет OIDC, SAML, LDAP-федерацию, MFA, кастомные темы логина. Если у Актиона есть SSO, в 70% случаев это Keycloak.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«У вас Keycloak, Authentik или что-то ещё? Кто администратор realm-а Action Tech, к кому идти за созданием client-а под мой пилот?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">Auth.js / NextAuth</div>
+          <span class="term-alias">авторизация в Next.js</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>Auth.js (раньше — NextAuth) — стандартная библиотека авторизации для Next.js. Поддерживает 50+ провайдеров (Google, GitHub, Keycloak, Authentik, кастомные OIDC). На MVP мы поднимем Credentials provider (просто email-allowlist), потом одной строкой переключим на корпоративный Keycloak.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«Когда дадите доступ к Keycloak realm для пилота, чтобы я переключил Auth.js с Credentials на OIDC?»</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- ═══ CHAPTER IX ═══ -->
+    <section class="chapter" id="ch9">
+      <div class="ch-kicker">Глава IX</div>
+      <h2 class="ch-title">LLM, эмбеддинги, провайдеры</h2>
+      <p class="ch-lead">Самая длинная глава. Мы не строим LLM — мы строим продукт поверх LLM. От понимания её ограничений зависит качество продукта.</p>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">LLM</div>
+          <span class="term-alias">large language model · gpt · claude</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>LLM — нейросеть, обученная предсказывать «следующее слово» на огромном корпусе текста. На выходе — модель, которая умеет связно говорить, отвечать на вопросы, писать код. Это эрудированный стажёр: широкая база знаний, складная речь, но без понимания и без памяти между разговорами.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«Какая у вас политика по моделям и их стоимости — есть бюджетный лимит на токены? Есть ли стандарт по модели для разных задач (cheap для классификации, expensive для рассуждения)?»</p>
+        </div>
+        <details class="deeper">
+          <summary>Глубже</summary>
+          <div class="deeper-body">
+            <p>LLM работает с <strong>токенами</strong> — это куски слов (примерно 0.75 слова на токен в английском, в русском хуже — около 2-3 токенов на слово из-за UTF-8). У моделей есть <strong>context window</strong> — сколько токенов помещается в один запрос (8k, 32k, 128k, 1M).</p>
+            <p>Параметры запроса: <code>temperature</code> (0 — детерминистично, 1 — творчески), <code>top_p</code>, <code>max_tokens</code>. Для оценки звонков по критерию ставим <code>temperature: 0</code> — нам нужна повторяемость.</p>
+            <p>Стоимость считается по входящим и исходящим токенам отдельно, в долларах за миллион токенов. Дёшево — Haiku, Llama 70B (~$0.5/M). Дорого — Opus, GPT-5 (~$15/M output).</p>
+          </div>
+        </details>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">OpenAI · Anthropic · Google</div>
+          <span class="term-alias">«большая тройка» frontier-моделей</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>OpenAI (GPT, ChatGPT), Anthropic (Claude), Google (Gemini) — три компании, владеющие самыми сильными LLM на 2026. Все в США. В РФ напрямую недоступны для бизнеса (платежи, юрисдикция, ПДн), плюс Anthropic явно блокирует российские компании.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«Какова официальная позиция Актиона по использованию зарубежных LLM? Есть ли DPA, оформление через зарубежную дочку, или однозначный запрет?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">OpenRouter</div>
+          <span class="term-alias">единый API ко всем моделям</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>OpenRouter — посредник: один API-ключ, через него ходишь к 200+ моделям (OpenAI, Anthropic, DeepSeek, open-weight, китайские). Указываешь модель строкой: <code>openai/gpt-5</code>, <code>anthropic/claude-sonnet-4.6</code>. Удобно для R&D и MVP.</p>
+          <p>Для прода в РФ не подходит юридически — данные всё равно идут к OpenAI / Anthropic. На MVP — синтетика.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«Можно для пилота использовать OpenRouter на синтетических звонках, при условии что прод-релиз перейдёт на GigaChat? И как у вас оформлена оплата зарубежных API?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">GigaChat 2 Max</div>
+          <span class="term-alias">Сбер · РФ-юрисдикция</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>GigaChat от Сбера — главная российская LLM в коммерческом B2B на 2026. Версия 2 Max — лучшая, контекст 128k, OpenAI-совместимый API, юрисдикция РФ, цена ~0.65 ₽ за 1k выходных токенов. Слабее GPT-5/Claude на сложном reasoning, но достаточно для нашей задачи.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«У Актиона уже есть корпоративный договор со Сбером и доступ к GigaChat 2 Max API? Если да — какой контракт между нашим сервисом и их API: токены, лимиты, биллинг?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">YandexGPT 5.1 Pro</div>
+          <span class="term-alias">Yandex AI Studio</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>Альтернатива GigaChat от Яндекса. Контекст меньше (32k), но есть function calling, batch API, дообучение. Хорош для коротких звонков, для длинных — нужен либо chunking, либо GigaChat.</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">T-Pro · Vikhr · Saiga</div>
+          <span class="term-alias">open-weight модели РФ</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p><strong>T-Pro 2.0</strong> от T-Технологий (Тинькофф) — 32B параметров, Apache 2.0, можно развернуть на своём GPU on-prem. Полная изоляция данных. Платишь только за железо.</p>
+          <p><strong>Vikhr / Saiga</strong> — народные дообучения Llama / Qwen / Mistral на русский язык. Ниже качеством, но бесплатны и свободны.</p>
+          <p>Это backup-стратегия — если ИБ запретит даже GigaChat, на собственном железе с T-Pro мы всё равно работаем.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«Есть ли у Актиона собственный GPU-кластер (H100 / A100), на который потенциально можно положить on-prem модель типа T-Pro? Cloud.ru / Selectel в качестве временного варианта аренды GPU рассматриваете?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">Embeddings · BGE-M3</div>
+          <span class="term-alias">векторное представление текста</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>Эмбеддинг — превращение текста в массив из ~1000 чисел так, чтобы похожие по смыслу тексты были близкими в этом пространстве. На этом строится семантический поиск (RAG): ищем не по ключевым словам, а по смыслу.</p>
+          <p><strong>BGE-M3</strong> — современная open-source модель эмбеддингов, лидер на ruMTEB, поддерживает контекст до 8k токенов.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«Если будем делать RAG по корпусу прошлых звонков — куда деплоить BGE-M3, на CPU-ноду или на GPU? Какие у нас есть ML-inference-серверы?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">RAG</div>
+          <span class="term-alias">retrieval-augmented generation</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>RAG — паттерн «найди релевантные документы → подложи их в контекст модели → попроси ответить». Так LLM «знает» факты из твоего корпуса, а не только из своих весов.</p>
+          <p>Применительно к нам: «Найди 5 похожих успешных звонков на эту тему — и оцени текущий звонок относительно них».</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">LLM-as-a-Judge</div>
+          <span class="term-alias">model-graded eval · pointwise scoring</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>Центральный паттерн нашей системы: используем LLM как «эксперта-проверяющего», который читает транскрипт и критерий и выносит вердикт (pass/fail/partial) с цитатой и обоснованием.</p>
+          <p>Известно про <strong>position bias</strong> (LLM любит первый вариант), <strong>length bias</strong> (любит длинные ответы), <strong>scoring bias</strong> (фокусируется на 3-4 значениях, даже если шкала 1-10). Митигируется правильным дизайном промпта и шкалой 0/1/2.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«Используете ли двухпроходную проверку (judge-1 + judge-2 на разных моделях) для high-stakes сценариев? Есть ли golden-set за прошлые периоды для регрессии промптов?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">Structured Outputs</div>
+          <span class="term-alias">JSON Schema · strict mode</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>Способ заставить LLM возвращать ответ в строго заданной JSON-структуре, а не свободным текстом. У OpenAI — режим <code>strict: true</code> с гарантией соответствия схеме. Это критично для production: нам нужен <code>{verdict, score, evidence, suggestion}</code>, а не «вот мои мысли по этому звонку».</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«Используете strict structured outputs или function calling с post-validation на zod / Pydantic? У GigaChat / YandexGPT какова поддержка JSON-mode?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">Chain-of-Thought · G-Eval</div>
+          <span class="term-alias">CoT · «рассуждение перед вердиктом»</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>Если попросить LLM «сначала рассуди, потом выдай вердикт» — точность сильно растёт. <strong>G-Eval</strong> — конкретная техника для оценочных задач: в одном запросе модель сначала пишет аргументацию (reasoning), потом структурированный вердикт. В JSON-схеме <code>reasoning</code> идёт ПЕРЕД <code>verdict</code>.</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">Prompt Caching · Batch API</div>
+          <span class="term-alias">оптимизация стоимости</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p><strong>Prompt caching</strong> — если у тебя один и тот же длинный системный промпт + меняющийся короткий пользовательский, провайдер запоминает и не пересчитывает префикс. Скидка до 90% на input.</p>
+          <p><strong>Batch API</strong> — отправляешь пачку запросов с обещанием «ответ можно через сутки» — получаешь скидку 50%. Идеально для «прогнать 1000 звонков по новому критерию ночью».</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- ═══ CHAPTER X ═══ -->
+    <section class="chapter" id="ch10">
+      <div class="ch-kicker">Глава X</div>
+      <h2 class="ch-title">Транскрипция и аудио</h2>
+      <p class="ch-lead">Прежде чем LLM что-то скажет про звонок, звонок должен превратиться в текст. И не просто в текст — а с разметкой «кто говорит» и «когда».</p>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">STT / ASR</div>
+          <span class="term-alias">Speech-to-Text · Automatic Speech Recognition</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>STT и ASR — синонимы: «расшифруй аудио в текст». На входе wav/mp3, на выходе строка с временны́ми метками. Качество измеряется в <strong>WER</strong> (word error rate) — процент слов с ошибками. Для русского коммерческого STT норма — 5–10%.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«У вас уже есть STT-пайплайн или сейчас транскрипты приходят руками? Какой провайдер — SaluteSpeech, YandexSpeechKit, on-prem Whisper / Vosk? Какой средний WER на ваших звонках?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">Whisper</div>
+          <span class="term-alias">OpenAI · open-source STT</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>Whisper — open-source модель распознавания речи от OpenAI, поддерживает 90+ языков, в том числе русский. На своём GPU работает офлайн (важно для ПДн!). Версия large-v3 — топовая в open-source. Дообучения для русского дают WER ~6.4%.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«Whisper-сервер у вас есть в k8s, или на data-стороне через Airflow? Есть ли своё дообучение на B2B-жаргоне (УСН, НДС, 1С, "первичка")?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">Диаризация</div>
+          <span class="term-alias">«кто говорит» · WhisperX · pyannote</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>Расшифровка без диаризации — просто текст. Диаризация добавляет ярлыки спикеров: «Speaker 1: ...», «Speaker 2: ...». Без этого не отличить, что сказал оператор, а что — клиент. Критично для критериев типа «представился ли менеджер».</p>
+          <p>Стандарт open-source — WhisperX (Whisper + pyannote.audio).</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«Расшифровки у вас приходят с диаризацией (двухканальные через телефонию или через ML-диаризатор) или просто как поток текста?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">SaluteSpeech · YandexSpeechKit · Tinkoff VoiceKit</div>
+          <span class="term-alias">российские managed STT</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>Три зрелых российских STT-провайдера в облаке. Цены 2026: SaluteSpeech ~1 коп/секунда, YandexSpeechKit ~1 ₽/мин fast, Tinkoff VoiceKit — корпоративные пакеты. Все три работают на серверах в РФ — 152-ФЗ соблюдается.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«У вас контракт с SaluteSpeech / YandexSpeechKit уже есть, или транскрипты приходят из своей телефонии (МТТ, Манго, UIS)? Можно вешать наш сервис на тот же поток?»</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- ═══ CHAPTER XI ═══ -->
+    <section class="chapter" id="ch11">
+      <div class="ch-kicker">Глава XI</div>
+      <h2 class="ch-title">Качество, eval, observability</h2>
+      <p class="ch-lead">LLM-приложения опасны тем, что ломаются молча. Логика «работает», но качество ответов незаметно деградирует. Этот раздел про инструменты, которые делают деградацию заметной.</p>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">Langfuse</div>
+          <span class="term-alias">LLM observability · self-hosted</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>Langfuse — open-source платформа, которая логирует каждый твой вызов LLM: что подал, что вернулось, сколько токенов, сколько денег, сколько секунд. Плюс — управление промптами, A/B-тесты, evals. Self-hostable, что важно для 152-ФЗ.</p>
+          <p>Самая ценная фича: <strong>prompt management</strong> — методолог редактирует критерий через UI Langfuse, версионирует, наблюдает изменения качества. Без коммитов в Git.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«У вас уже есть LLM-observability — Langfuse, Helicone, что-то своё? Готовы поднять Langfuse self-hosted в k8s, чтобы методологи редактировали критерии через UI?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">Promptfoo · DeepEval</div>
+          <span class="term-alias">LLM eval · регрессионные тесты</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>Promptfoo — YAML-инструмент для тестов промптов. Описываешь набор тестовых транскриптов с ожидаемыми вердиктами, и каждый раз, когда меняешь промпт критерия, promptfoo прогоняет всё и говорит, что улучшилось / сломалось. Запускаешь в CI — это юнит-тесты для промптов.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«Принят ли подход golden-set + регрессии промптов? Где будем хранить набор тестовых транскриптов с разметкой методологов?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">Golden Set</div>
+          <span class="term-alias">размеченный эталонный корпус</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>Курируемый набор «правильных ответов». Для каждого критерия — 15–30 транскриптов, размеченных методологами. Это эталон, на котором проверяешь качество. Без него любая «улучшение промпта» — субъективный взгляд автора.</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">OpenLLMetry · OpenTelemetry</div>
+          <span class="term-alias">распределённый трейсинг</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>OpenTelemetry — стандарт сборки метрик, логов и трейсов из распределённой системы. Когда твой запрос проходит через 5 сервисов, ты видишь весь путь и где задержка. OpenLLMetry — расширение под LLM-вызовы.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«У вас стек observability — Prometheus + Grafana + Loki, ELK, Datadog, что-то ещё? Принимаете трейсы по OTLP-протоколу?»</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- ═══ CHAPTER XII ═══ -->
+    <section class="chapter" id="ch12">
+      <div class="ch-kicker">Глава XII</div>
+      <h2 class="ch-title">152-ФЗ, ПДн и регуляторика</h2>
+      <p class="ch-lead">Самая короткая глава по словам, но самая важная по последствиям. Штрафы за нарушения — десятки и сотни миллионов рублей.</p>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">152-ФЗ</div>
+          <span class="term-alias">ФЗ «О персональных данных»</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>Главный российский закон о ПДн. Действует с 2006, в 2025 серьёзно ужесточён: с 01.07.2025 — обязательная локализация (ПДн граждан РФ должны изначально собираться в РФ-серверах). С 01.09.2025 — согласие на обработку ПДн должно быть отдельным документом, а не пунктом оферты.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«У Актиона действующее уведомление в РКН об операторе ПДн? Включена ли обработка через AI / LLM в Регламент обработки ПДн? Есть ли DPO?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">ПДн</div>
+          <span class="term-alias">персональные данные</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>Любая информация, которая позволяет идентифицировать конкретного физлица: ФИО, телефон, email, голос, ИНН, паспорт. Запись разговора с клиентом — это ПДн (содержит голос + ФИО + контактные данные). Транскрипт записи — тоже ПДн.</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">РКН</div>
+          <span class="term-alias">Роскомнадзор</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>Регулятор, контролирующий 152-ФЗ. Принимает уведомления операторов, проводит проверки, выписывает штрафы. С 2025 фокус на компаниях, использующих зарубежные облака и LLM.</p>
+          <p>Штрафы 2026: оборотные 1–3% выручки за утечку (минимум 20 млн ₽, максимум 500 млн ₽).</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">Трансграничная передача</div>
+          <span class="term-alias">ТПД · cross-border transfer</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>Передача ПДн «иностранному лицу» (включая OpenAI Inc., США). Требует уведомления РКН за 10 рабочих дней до начала. Без уведомления — нарушение. Прямая отправка реальных транскриптов клиентов в OpenRouter / OpenAI без оформления — это именно оно.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«Есть ли уже оформленное в РКН уведомление о трансграничной передаче? Если нет — какой timeline по оформлению, чтобы не блокировать прод-релиз?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">Обезличивание</div>
+          <span class="term-alias">Приказ РКН №140 (с 01.09.2025)</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>Легальный способ обработать данные без согласия и с меньшими ограничениями: правильно обезличить так, чтобы невозможно было идентифицировать субъекта без дополнительной информации.</p>
+          <p>Для нас: preprocessor на входе пайплайна — regex (телефоны, email, реквизиты) + LLM-NER-проход (имена, компании) → замена на токены типа <code>[ИМЯ_1]</code>, <code>[ТЕЛ_1]</code>. Маппинг хранится локально в РФ.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«Есть ли у Актиона методика обезличивания по Приказу №140? Что входит в нашу зону: достаточно ли regex+NER или ИБ требует более жёсткого pipeline?»</p>
+        </div>
+      </article>
+
+      <article class="term">
+        <div class="term-head">
+          <div class="term-name">DPO · Регламент обработки</div>
+          <span class="term-alias">Data Protection Officer</span>
+        </div>
+        <div class="layer simple">
+          <span class="layer-label">На пальцах</span>
+          <p>DPO — ответственный за защиту ПДн в компании, контактное лицо РКН. Регламент обработки ПДн — внутренний документ, описывающий все процессы. Любой новый сервис, обрабатывающий ПДн, должен попасть в Регламент.</p>
+        </div>
+        <div class="layer expert">
+          <span class="layer-label">Что спросить экспертом</span>
+          <p>«Кто DPO Актиона, к кому идти за внесением нашего сервиса в Регламент обработки ПДн? Какой типичный срок согласования?»</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- ═══ GLOSSARY ═══ -->
+    <section class="glossary-section" id="glossary">
+      <div class="ch-kicker">Алфавитный указатель</div>
+      <h2 class="ch-title">Глоссарий А–Я</h2>
+      <p class="ch-lead">Все ~60 терминов одной сводкой. Кликни по названию — попадёшь в главу с подробностями.</p>
+
+      <div class="glossary">
+
+        <!-- A -->
+        <div class="gloss-letter">A</div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch4">Apache Kafka</a>
+          <p class="gloss-def">Распределённый журнал событий. <strong>Producer</strong> (тот, кто пишет) кладёт сообщение в <strong>topic</strong> (тематический канал), <strong>consumer</strong> (читатель) подписывается и читает по своему курсору. События хранятся долго (часы, дни, недели), их можно перечитать заново — этим Kafka отличается от обычной очереди.</p>
+          <span class="gloss-loc">Гл. IV</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch5">API contract-first</a>
+          <p class="gloss-def"><strong>API</strong> = Application Programming Interface (способ, которым один сервис общается с другим). Подход «сначала контракт»: пишут OpenAPI-спеку, согласуют между командами, потом каждая команда генерирует свой код от спеки. Альтернатива — code-first, когда спека генерируется из готового кода.</p>
+          <span class="gloss-loc">Гл. V</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch8">Auth.js / NextAuth</a>
+          <p class="gloss-def"><strong>Auth</strong> = authentication (аутентификация — установление личности). Стандартная библиотека для Next.js (раньше называлась NextAuth). 50+ готовых провайдеров: Google, GitHub, Keycloak, Authentik, кастомный OIDC/SAML.</p>
+          <span class="gloss-loc">Гл. VIII</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch4">Avro / Protobuf</a>
+          <p class="gloss-def">Бинарные форматы описания структуры сообщений в Kafka и gRPC. <strong>Protobuf</strong> = Protocol Buffers (от Google). Вместо «JSON и надейся» — строгая схема: «здесь поле <code>call_id</code> типа UUID, здесь <code>duration_ms</code> типа int64». Старая версия читателя должна быть совместима с новой версией писателя.</p>
+          <span class="gloss-loc">Гл. IV</span>
+        </div>
+
+        <!-- B -->
+        <div class="gloss-letter">B</div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch4">BullMQ / Trigger.dev</a>
+          <p class="gloss-def">Библиотеки очередей фоновых задач для Node.js. <strong>BullMQ</strong> работает поверх Redis, простой и быстрый — в нашем MVP «прогнать критерий по 50 транскриптам» это оно. <strong>Trigger.dev v3</strong> — следующее поколение: durable workflows (выживают перезапусков), retries, встроенный dashboard.</p>
+          <span class="gloss-loc">Гл. IV</span>
+        </div>
+
+        <!-- C -->
+        <div class="gloss-letter">C</div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch9">Chain-of-Thought / G-Eval</a>
+          <p class="gloss-def"><strong>CoT</strong> = Chain-of-Thought (цепочка рассуждений). Промпт-техника: попросить LLM сначала написать рассуждение, потом выдать вердикт — точность eval-задач сильно растёт. <strong>G-Eval</strong> — конкретный метод для оценочных задач (Liu et al., EMNLP 2023): в JSON-схеме поле <code>reasoning</code> идёт перед <code>verdict</code>.</p>
+          <span class="gloss-loc">Гл. IX</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch2">CI/CD</a>
+          <p class="gloss-def"><strong>CI</strong> = Continuous Integration (непрерывная интеграция, автоматические тесты на каждый push), <strong>CD</strong> = Continuous Delivery / Deployment (непрерывная доставка / деплой). Конвейер от твоего <code>git push</code> до пользователя: тесты → сборка → деплой автоматически. Цель — чтобы релиз был дешёвым событием, а не подвигом.</p>
+          <span class="gloss-loc">Гл. II</span>
+        </div>
+
+        <!-- D -->
+        <div class="gloss-letter">D</div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch1">Docker</a>
+          <p class="gloss-def">Упаковка приложения вместе со всеми зависимостями (библиотеки, рантайм, конфиги) в герметичный «контейнер» — образ. Один образ — одинаковый запуск на ноуте, у коллеги и в проде. Технически — изолированный процесс на Linux через kernel namespaces и cgroups.</p>
+          <span class="gloss-loc">Гл. I</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch2">Docker Registry</a>
+          <p class="gloss-def">Корпоративная «полка» для собранных Docker-образов. CI собрал образ — пушит сюда, Kubernetes хочет развернуть — забирает отсюда. Публичные: Docker Hub, <strong>GHCR</strong> (GitHub Container Registry). Корпоративные: Harbor, Nexus, GitLab Container Registry.</p>
+          <span class="gloss-loc">Гл. II</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch12">DPO</a>
+          <p class="gloss-def"><strong>DPO</strong> = Data Protection Officer (специалист по защите данных). Ответственный за защиту ПДн в компании, контактное лицо для Роскомнадзора. Любой новый сервис, обрабатывающий ПДн, должен пройти через него для внесения в Регламент обработки.</p>
+          <span class="gloss-loc">Гл. XII</span>
+        </div>
+
+        <!-- E -->
+        <div class="gloss-letter">E</div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch9">Embeddings / BGE-M3</a>
+          <p class="gloss-def"><strong>Эмбеддинг</strong> = превращение текста в массив из ~1000 чисел (вектор) так, чтобы близкие по смыслу тексты оказывались близкими в этом пространстве. На этом строится семантический поиск (RAG). <strong>BGE-M3</strong> от <strong>BAAI</strong> (Beijing Academy of AI) — лидер на <strong>ruMTEB</strong> (русский benchmark эмбеддингов), 8K контекст.</p>
+          <span class="gloss-loc">Гл. IX</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch6">Entity Framework Core</a>
+          <p class="gloss-def"><strong>EF Core</strong> = Entity Framework Core. Официальный <strong>ORM</strong> (Object-Relational Mapper) от Microsoft для C#. Описываешь классы (entities) и контекст (<code>DbContext</code>), EF строит таблицы и переводит запросы в SQL. Code-first миграции: меняешь классы → команда генерирует SQL для базы.</p>
+          <span class="gloss-loc">Гл. VI</span>
+        </div>
+
+        <!-- G -->
+        <div class="gloss-letter">G</div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch9">GigaChat 2 Max</a>
+          <p class="gloss-def">Главная российская LLM от Сбера в коммерческом B2B на 2026. Версия 2 Max — топ. Контекст 128k токенов, <strong>OpenAI-совместимый API</strong> (подключается тем же кодом, что и OpenAI), серверы в РФ — соответствует 152-ФЗ. Цена ~0.65 ₽ за 1k выходных токенов.</p>
+          <span class="gloss-loc">Гл. IX</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch11">Golden Set</a>
+          <p class="gloss-def">Курируемый набор «правильных ответов»: для каждого критерия — 15–30 транскриптов, размеченных людьми-методологами. Эталон, на котором проверяешь качество промпта при изменениях. Без него любое «улучшение промпта» — субъективное мнение автора.</p>
+          <span class="gloss-loc">Гл. XI</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch3">Greenplum + Airflow + Superset</a>
+          <p class="gloss-def">Аналитический контур Актиона. <strong>Greenplum</strong> — массивно-параллельный Postgres для гигантских объёмов (<strong>MPP</strong> = Massively Parallel Processing). <strong>Airflow</strong> от Apache — оркестратор пайплайнов («каждую ночь забери из 10 систем, склей, посчитай»). <strong>Superset</strong> — BI-дашборды (<strong>BI</strong> = Business Intelligence).</p>
+          <span class="gloss-loc">Гл. III</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch5">gRPC</a>
+          <p class="gloss-def"><strong>gRPC</strong> = gRPC Remote Procedure Calls (рекурсивная аббревиатура от Google). <strong>RPC</strong> = Remote Procedure Call (вызов функции на другом сервере как локальной). Бинарный протокол поверх HTTP/2, описание интерфейса в <code>.proto</code> файлах, кодогенерация клиентов на десятках языков. Заметно быстрее JSON-REST.</p>
+          <span class="gloss-loc">Гл. V</span>
+        </div>
+
+        <!-- H -->
+        <div class="gloss-letter">H</div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch1">Helm</a>
+          <p class="gloss-def">Шаблонизатор для Kubernetes-манифестов. <strong>Chart</strong> = пакет шаблонов с параметрами в <code>values.yaml</code>. «Рецепт IKEA» для k8s-приложений: вместо 12 YAML-файлов руками — один шаблон + значения для конкретного окружения.</p>
+          <span class="gloss-loc">Гл. I</span>
+        </div>
+
+        <!-- K -->
+        <div class="gloss-letter">K</div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch8">Keycloak</a>
+          <p class="gloss-def">Open-source <strong>Identity Provider</strong> (<strong>IdP</strong>, провайдер личностей) от Red Hat. Самый распространённый в российском enterprise: умеет OIDC, SAML, LDAP-федерацию, <strong>MFA</strong> (multi-factor authentication, многофакторная аутентификация), кастомные темы логина.</p>
+          <span class="gloss-loc">Гл. VIII</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch1">Kubernetes</a>
+          <p class="gloss-def"><strong>k8s</strong> — сокращение Kubernetes (между K и s — 8 букв). «Дирижёр» для контейнеров: следит, чтобы N подов с твоим образом всегда работали; перезапускает упавшие; балансирует нагрузку; масштабирует под нагрузкой. Произносится «куберне́тис», коротко — «куб», «кубер».</p>
+          <span class="gloss-loc">Гл. I</span>
+        </div>
+
+        <!-- L -->
+        <div class="gloss-letter">L</div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch11">Langfuse</a>
+          <p class="gloss-def">Open-source платформа <strong>observability</strong> (наблюдаемости) для LLM-приложений. Логирует каждый вызов модели: что подал, что вернулось, сколько токенов, сколько денег, сколько секунд. Self-hostable (важно для 152-ФЗ). Бонус — управление промптами через UI, A/B-тесты, evals.</p>
+          <span class="gloss-loc">Гл. XI</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch9">LLM</a>
+          <p class="gloss-def"><strong>LLM</strong> = Large Language Model (большая языковая модель). Нейросеть, обученная предсказывать «следующее слово» на огромном корпусе текста. Работает как «эрудированный стажёр»: широкая база, складная речь, но без понимания и без памяти между разговорами.</p>
+          <span class="gloss-loc">Гл. IX</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch9">LLM-as-a-Judge</a>
+          <p class="gloss-def">Использование LLM как эксперта-проверяющего: модель читает транскрипт + критерий, выдаёт вердикт (pass/fail/partial) + цитату + suggestion. <strong>Pointwise scoring</strong> = оценка по одному критерию за раз (vs pairwise — сравнение двух вариантов). Известны bias-ы (position, length, scoring) — митигируются дизайном промпта.</p>
+          <span class="gloss-loc">Гл. IX</span>
+        </div>
+
+        <!-- M -->
+        <div class="gloss-letter">M</div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch1">Managed vs Self-hosted</a>
+          <p class="gloss-def"><strong>Managed</strong> (облачный) k8s — арендуешь готовый кластер у Yandex Cloud / SberCloud / VK Cloud, они следят за master-нодами, обновлениями, бэкапами. <strong>Self-hosted</strong> — кластер на собственном железе или виртуалках, всё держишь сам. Tradeoff между удобством и контролем над данными (что важно для 152-ФЗ).</p>
+          <span class="gloss-loc">Гл. I</span>
+        </div>
+
+        <!-- N -->
+        <div class="gloss-letter">N</div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch6">.NET / ASP.NET Core</a>
+          <p class="gloss-def"><strong>.NET</strong> — кроссплатформенная среда исполнения от Microsoft, основной язык — <strong>C#</strong> (читается «си шарп»). <strong>ASP.NET Core</strong> — фреймворк для веб-сервисов поверх неё. Аналог Spring (Java), Django (Python), Express (Node) по роли. Бэкенд-стандарт продакт-команд Актиона.</p>
+          <span class="gloss-loc">Гл. VI</span>
+        </div>
+
+        <!-- O -->
+        <div class="gloss-letter">O</div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch3">Object Storage / S3</a>
+          <p class="gloss-def"><strong>S3</strong> = Simple Storage Service (от Amazon, стал индустриальным стандартом). Объектное хранилище для крупных файлов: аудио, видео, бэкапы. Не файловая система — нет папок, только префиксы у уникальных ключей. Российские S3-совместимые: Yandex Object Storage, VK Cloud, MinIO on-prem.</p>
+          <span class="gloss-loc">Гл. III</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch8">OIDC / OAuth 2.0</a>
+          <p class="gloss-def"><strong>OAuth 2.0</strong> — стандарт «дай этому приложению доступ от моего имени» (про авторизацию). <strong>OIDC</strong> = OpenID Connect — надстройка, которая ещё и сообщает «вот кто этот пользователь» (про аутентификацию). Современный SSO почти всегда — OIDC. Поток: приложение редиректит на IdP → юзер логинится → IdP редиректит обратно с подписанным токеном.</p>
+          <span class="gloss-loc">Гл. VIII</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch9">OpenAI · Anthropic · Google</a>
+          <p class="gloss-def">«Большая тройка» frontier-LLM (передовых моделей) в США 2026: <strong>OpenAI</strong> (GPT-5, ChatGPT), <strong>Anthropic</strong> (Claude), <strong>Google</strong> (Gemini). Юридически недоступны для реальных РФ-данных (152-ФЗ + сложности с платежами + санкции). Anthropic явно блокирует российские компании политикой с сентября 2025.</p>
+          <span class="gloss-loc">Гл. IX</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch5">OpenAPI</a>
+          <p class="gloss-def">Стандарт описания REST-API в одном YAML-файле: какие endpoints, параметры, ответы, типы. Раньше назывался <strong>Swagger</strong>, текущая версия — 3.1 (2026). По спеке автоматически генерируются документация (Swagger UI), клиенты на десятках языков (через <strong>NSwag</strong> для C#, <strong>openapi-typescript</strong> для TS), mock-серверы.</p>
+          <span class="gloss-loc">Гл. V</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch11">OpenLLMetry / OpenTelemetry</a>
+          <p class="gloss-def"><strong>OpenTelemetry</strong> (<strong>OTel</strong>) — стандарт сборки метрик, логов и трейсов из распределённой системы. Когда запрос проходит через 5 сервисов, ты видишь весь путь и где задержка. <strong>OpenLLMetry</strong> — расширение под LLM-вызовы. Принимается экспортёрами: Datadog, Grafana, Jaeger, Langfuse.</p>
+          <span class="gloss-loc">Гл. XI</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch9">OpenRouter</a>
+          <p class="gloss-def">Посредник: один API-ключ, через него ходишь к 200+ моделям (OpenAI, Anthropic, DeepSeek, open-weight, китайские). Указываешь модель строкой: <code>openai/gpt-5</code>, <code>anthropic/claude-sonnet-4.6</code>. Удобно для <strong>R&amp;D</strong> (Research &amp; Development) и MVP. Для прода в РФ юридически не подходит — данные идут к OpenAI/Anthropic.</p>
+          <span class="gloss-loc">Гл. IX</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch3">ORM</a>
+          <p class="gloss-def"><strong>ORM</strong> = Object-Relational Mapper (объектно-реляционный отображатель). Переводчик между «классы в коде» и «таблицы в БД». Вместо сырого SQL пишешь <code>db.users.where({id: 5}).leftJoin('orders')</code>, ORM генерирует SQL. В .NET — EF Core, в TypeScript — Drizzle/Prisma, в Python — SQLAlchemy.</p>
+          <span class="gloss-loc">Гл. III</span>
+        </div>
+
+        <!-- P -->
+        <div class="gloss-letter">P</div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch3">pgvector</a>
+          <p class="gloss-def">Расширение Postgres для хранения и поиска векторных эмбеддингов прямо в той же БД. До 5–10 миллионов векторов справляется без отдельной векторной БД (Qdrant, Weaviate). Поддерживает индексы: <strong>HNSW</strong> (Hierarchical Navigable Small World — точнее, медленнее строится) и <strong>IVFFlat</strong> (Inverted File Flat — быстрее строится, чуть менее точен).</p>
+          <span class="gloss-loc">Гл. III</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch1">Pod / Dev-pod</a>
+          <p class="gloss-def"><strong>Pod</strong> — наименьшая единица работы в Kubernetes: один или несколько контейнеров, делящих сеть и тома. Обычно один контейнер на под, иногда подкладывают <strong>sidecar</strong> (например, прокси для логов). «Dev-pod» в жаргоне = «выделите мне одно живое место в общем dev-кластере под пилот».</p>
+          <span class="gloss-loc">Гл. I</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch3">PostgreSQL</a>
+          <p class="gloss-def"><strong>PostgreSQL</strong> (коротко — Postgres, pg). Самая популярная open-source реляционная БД. Поддерживает: транзакции <strong>ACID</strong> (Atomicity, Consistency, Isolation, Durability), JSON-поля, полнотекстовый поиск, расширения (pgvector, PostGIS, TimescaleDB), <strong>RLS</strong> (Row-Level Security — фильтрация строк по тенанту прямо на уровне БД).</p>
+          <span class="gloss-loc">Гл. III</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch9">Prompt Caching · Batch API</a>
+          <p class="gloss-def">Скидки от LLM-провайдеров. <strong>Prompt caching</strong>: один и тот же длинный системный префикс не пересчитывается между запросами — скидка до 90% на input. <strong>Batch API</strong>: отправляешь пачку запросов с обещанием «ответ можно через 24 часа» — скидка 50%. Идеально для нашего «прогнать 1000 звонков по новому критерию ночью».</p>
+          <span class="gloss-loc">Гл. IX</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch11">Promptfoo / DeepEval</a>
+          <p class="gloss-def">Регрессионные тесты для LLM-промптов — «юнит-тесты для промптов». <strong>Promptfoo</strong>: YAML-конфиг с golden-set, запуск в CI (Continuous Integration). <strong>DeepEval</strong>: pytest-style для Python с 50+ метриками. Каждый раз, когда меняешь промпт критерия — прогон через golden, видишь, что улучшилось/сломалось.</p>
+          <span class="gloss-loc">Гл. XI</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch6">Python / FastAPI</a>
+          <p class="gloss-def"><strong>FastAPI</strong> — стандарт для веб-API на Python в 2026: async (асинхронный), <strong>Pydantic</strong> для типизации и валидации, автогенерация OpenAPI-спеки из аннотаций. Менеджеры зависимостей: <strong>Poetry</strong>, <strong>uv</strong> (новый, быстрый), pip-tools. У Актиона Python используется data-командой (Airflow), не для пользовательских API.</p>
+          <span class="gloss-loc">Гл. VI</span>
+        </div>
+
+        <!-- R -->
+        <div class="gloss-letter">R</div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch4">RabbitMQ</a>
+          <p class="gloss-def">Очередь сообщений для команд. Producer кладёт письмо, RabbitMQ доставляет одному или нескольким consumer-ам, после прочтения письмо удаляется. Хорошо для «выполни задачу один раз»: «отправь email», «зарегистрируй платёж». Отличие от Kafka: Rabbit для команд (do this), Kafka для событий (this happened).</p>
+          <span class="gloss-loc">Гл. IV</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch9">RAG</a>
+          <p class="gloss-def"><strong>RAG</strong> = Retrieval-Augmented Generation (генерация с дополнением через поиск). Паттерн: «найди релевантные документы (через векторный поиск) → подложи их в контекст модели → попроси ответить». Так LLM «знает» факты из твоего корпуса, а не только из своих весов. Для нас: «найди 5 похожих успешных звонков и оцени текущий относительно них».</p>
+          <span class="gloss-loc">Гл. IX</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch7">React · Next.js · App Router</a>
+          <p class="gloss-def"><strong>React</strong> — JS-библиотека для UI: разбиваешь интерфейс на компоненты. <strong>Next.js</strong> — фреймворк поверх React, добавляет роутинг, серверный рендеринг и backend API в одном репо. <strong>App Router</strong> — современный режим (с v13+), файловая структура определяет URL. <strong>RSC</strong> = React Server Components (рендерятся на сервере, не отправляют JS в браузер).</p>
+          <span class="gloss-loc">Гл. VII</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch4">Redis</a>
+          <p class="gloss-def"><strong>In-memory</strong> key-value store (хранилище «ключ → значение» в оперативной памяти) — мгновенный отклик. Используют для: кеша (повторный запрос — быстрее), сессий, <strong>rate-limiting</strong> (ограничение частоты запросов), и часто как backend для очередей задач (BullMQ, Sidekiq). Sentinel / Cluster mode — два варианта high-availability.</p>
+          <span class="gloss-loc">Гл. IV</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch5">REST</a>
+          <p class="gloss-def"><strong>REST</strong> = Representational State Transfer (стиль архитектуры распределённых систем). Самый распространённый стиль HTTP-API: адреса описывают ресурсы (<code>/calls/123</code>), методы — действия (<code>GET</code> прочитать, <code>POST</code> создать, <code>PUT</code> обновить, <code>DELETE</code> удалить), тело — JSON.</p>
+          <span class="gloss-loc">Гл. V</span>
+        </div>
+
+        <!-- S -->
+        <div class="gloss-letter">S</div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch10">SaluteSpeech / YandexSpeechKit / VoiceKit</a>
+          <p class="gloss-def">Три зрелых российских <strong>STT</strong> (Speech-to-Text) провайдера. <strong>SaluteSpeech</strong> от Сбера (~1 коп/сек), <strong>YandexSpeechKit</strong> (~1 ₽/мин fast), <strong>Tinkoff VoiceKit</strong> (корпоративные пакеты). Все три на серверах в РФ — 152-ФЗ соблюдается, что критично для прода.</p>
+          <span class="gloss-loc">Гл. X</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch8">SAML</a>
+          <p class="gloss-def"><strong>SAML</strong> = Security Assertion Markup Language (язык разметки утверждений безопасности). Предшественник OIDC: всё то же самое, но XML вместо JSON и сложнее в настройке. До сих пор живёт в крупном enterprise (банки, госкорпорации, старые SSO-системы).</p>
+          <span class="gloss-loc">Гл. VIII</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch7">shadcn/ui</a>
+          <p class="gloss-def">Не библиотека, а коллекция готовых React-компонентов (кнопки, диалоги, дропдауны), которые ты копируешь к себе в проект. Построены на <strong>Radix UI</strong> (доступность из коробки) и Tailwind. В отличие от Material UI / Ant Design — нет npm-зависимости, всё твой код, можно править под себя.</p>
+          <span class="gloss-loc">Гл. VII</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch2">SOPS</a>
+          <p class="gloss-def"><strong>SOPS</strong> = Secrets OPerationS (от Mozilla). Шифрует YAML/JSON с секретами и позволяет хранить их в Git. Расшифровка — ключом из <strong>KMS</strong> (Key Management Service) / <strong>age</strong> / <strong>GPG</strong> (GNU Privacy Guard). Альтернатива Vault для GitOps-подходов: не нужен живой сервис, только файл.</p>
+          <span class="gloss-loc">Гл. II</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch8">SSO</a>
+          <p class="gloss-def"><strong>SSO</strong> = Single Sign-On (единый вход). «Один раз вошёл — везде свой»: сотрудник логинится в корпоративный <strong>Identity Provider</strong> (IdP, провайдер личностей), и для всех внутренних сервисов он уже идентифицирован. Технически реализуется через OIDC или SAML.</p>
+          <span class="gloss-loc">Гл. VIII</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch7">Streaming · SSE · WebSocket</a>
+          <p class="gloss-def">Способы передачи данных от сервера к клиенту в реальном времени. <strong>SSE</strong> = Server-Sent Events (события от сервера): обычное HTTP-соединение, сервер не закрывает его и шлёт события по мере готовности — для чата с LLM этого хватает. <strong>WebSocket</strong> (<strong>WS</strong>) — двунаправленный канал, нужен только когда клиент тоже активно шлёт сообщения (multiplayer-игры).</p>
+          <span class="gloss-loc">Гл. VII</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch9">Structured Outputs</a>
+          <p class="gloss-def">Способ заставить LLM возвращать ответ в строго заданной <strong>JSON Schema</strong>, а не свободным текстом. У OpenAI — режим <code>strict: true</code> с гарантией ~100% соответствия схеме (vs ~40% на free-form JSON). Критично для production: нам нужен <code>{verdict, score, evidence, suggestion}</code>, а не «вот мои мысли».</p>
+          <span class="gloss-loc">Гл. IX</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch10">STT / ASR</a>
+          <p class="gloss-def"><strong>STT</strong> = Speech-to-Text, <strong>ASR</strong> = Automatic Speech Recognition (автоматическое распознавание речи). Синонимы: «расшифруй аудио в текст». На входе wav/mp3, на выходе строка с временны́ми метками. Качество — <strong>WER</strong> = Word Error Rate (процент слов с ошибками). Для русского коммерческого STT норма — 5–10%.</p>
+          <span class="gloss-loc">Гл. X</span>
+        </div>
+
+        <!-- T -->
+        <div class="gloss-letter">T</div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch7">Tailwind CSS</a>
+          <p class="gloss-def"><strong>Utility-first</strong> CSS-фреймворк: вместо классов со своими именами ты складываешь интерфейс из готовых атомов прямо в HTML (<code>flex items-center gap-2 p-4 bg-white</code>). Быстро, согласованно, без отдельных <code>.css</code> файлов. Версия 4 (2026) — крупное обновление, конфигурация прямо в CSS.</p>
+          <span class="gloss-loc">Гл. VII</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch9">T-Pro · Vikhr · Saiga</a>
+          <p class="gloss-def"><strong>Open-weight</strong> = свободно опубликованные веса модели, можно скачать и запустить у себя. <strong>T-Pro 2.0</strong> от Т-Технологий (Тинькофф) — 32B параметров, лицензия Apache 2.0, разворачивается on-prem (на своём железе). <strong>Vikhr / Saiga</strong> — народные дообучения Llama / Qwen / Mistral на русский язык. Backup-стратегия для полной изоляции данных от внешних API.</p>
+          <span class="gloss-loc">Гл. IX</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch7">TypeScript</a>
+          <p class="gloss-def"><strong>TypeScript</strong> (<strong>TS</strong>) — JavaScript + строгая типизация. Пишешь <code>function getUser(id: number): User</code>, и компилятор ругается, если ты передал строку. Помогает не сломать всё при рефакторинге, особенно в больших проектах. <strong>Strict mode</strong> — самые жёсткие настройки, рекомендуется по умолчанию.</p>
+          <span class="gloss-loc">Гл. VII</span>
+        </div>
+
+        <!-- V -->
+        <div class="gloss-letter">V</div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch2">Vault</a>
+          <p class="gloss-def"><strong>HashiCorp Vault</strong> — индустриальный стандарт хранилища секретов. Банковский сейф для паролей, API-ключей, сертификатов: сервисы при старте лезут с авторизацией и забирают свои секреты. Поддерживает динамические <strong>creds</strong> (credentials, временные пароли на каждый запрос), <strong>rotation</strong> (ротацию), <strong>audit log</strong> (журнал доступа), шифрование как сервис.</p>
+          <span class="gloss-loc">Гл. II</span>
+        </div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch7">Vercel AI SDK</a>
+          <p class="gloss-def">TypeScript-библиотека для подключения LLM в веб-приложения (главным образом Next.js). <code>streamText()</code> — серверная функция: вызвать модель и стримить ответ. <code>useChat()</code> — клиентский <strong>hook</strong> (хук — функция в React для состояния) для UI чата с историей и стримингом. Поддерживает 25+ провайдеров: OpenAI, Anthropic, OpenRouter, Google, локальные.</p>
+          <span class="gloss-loc">Гл. VII</span>
+        </div>
+
+        <!-- W -->
+        <div class="gloss-letter">W</div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch10">Whisper</a>
+          <p class="gloss-def">Open-source модель распознавания речи от OpenAI. Поддерживает 90+ языков, включая русский. На своём <strong>GPU</strong> (графический процессор) работает офлайн — важно для соблюдения 152-ФЗ. Версия large-v3 — топовая в open-source. Дообучения для русского (например, antony66/whisper-large-v3-russian) дают <strong>WER</strong> ~6.4%.</p>
+          <span class="gloss-loc">Гл. X</span>
+        </div>
+
+        <!-- Y -->
+        <div class="gloss-letter">Y</div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch9">YandexGPT 5.1 Pro</a>
+          <p class="gloss-def">Российская LLM от Яндекса. Контекст 32k токенов (меньше, чем у GigaChat 128k), но есть <strong>function calling</strong> (вызов внешних инструментов из модели), Batch API, дообучение на свои данные. На <strong>SLAVA</strong> (русский benchmark) — второе место среди RU-моделей, серверы в РФ — 152-ФЗ соблюдается.</p>
+          <span class="gloss-loc">Гл. IX</span>
+        </div>
+
+        <!-- Cyrillic -->
+        <div class="gloss-letter">Числа</div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch12">152-ФЗ</a>
+          <p class="gloss-def">Федеральный закон №152 «О персональных данных», действует с 2006. В 2025 серьёзно ужесточён: с 01.07.2025 — обязательная локализация (ПДн граждан РФ изначально на серверах в РФ, зеркало больше не считается); с 01.09.2025 — согласие отдельным документом, не пунктом оферты. Штрафы 2026: 1–3% оборота, минимум 20 млн ₽, максимум 500 млн ₽.</p>
+          <span class="gloss-loc">Гл. XII</span>
+        </div>
+
+        <div class="gloss-letter">Д</div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch10">Диаризация</a>
+          <p class="gloss-def">Расшифровка без диаризации — просто текст. Диаризация добавляет ярлыки спикеров: «Speaker 1: ...», «Speaker 2: ...». Без неё не отличить, что сказал оператор, а что — клиент. Стандарт open-source — <strong>WhisperX</strong> (Whisper + <strong>pyannote.audio</strong> для определения границ спикеров).</p>
+          <span class="gloss-loc">Гл. X</span>
+        </div>
+
+        <div class="gloss-letter">М</div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch5">Микросервисы vs Монолит</a>
+          <p class="gloss-def"><strong>Монолит</strong> — одно большое приложение, все фичи в одном процессе (просто, быстро запускать, тяжело масштабировать отдельные части). <strong>Микросервисы</strong> — десятки маленьких сервисов, общающихся по сети через REST/gRPC/Kafka (масштабируется отдельно, деплоится отдельно — но операционная сложность выше). Промежуточный вариант — <strong>модульный монолит</strong>.</p>
+          <span class="gloss-loc">Гл. V</span>
+        </div>
+
+        <div class="gloss-letter">О</div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch12">Обезличивание</a>
+          <p class="gloss-def">Легальный способ обработать ПДн с меньшими ограничениями по Приказу РКН №140 (вступил в силу 01.09.2025). Замена идентификаторов (ФИО, телефон, email, реквизиты) на токены вида <code>[ИМЯ_1]</code>, <code>[ТЕЛ_1]</code>. После корректного обезличивания данные перестают быть ПДн в правовом смысле — можно обрабатывать без согласия субъекта.</p>
+          <span class="gloss-loc">Гл. XII</span>
+        </div>
+
+        <div class="gloss-letter">П</div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch12">ПДн</a>
+          <p class="gloss-def"><strong>ПДн</strong> = Персональные Данные. Любая информация, которая позволяет идентифицировать физлицо: ФИО, телефон, email, голос, <strong>ИНН</strong> (идентификационный номер налогоплательщика), паспорт, реквизиты, биометрия. Запись разговора с клиентом — это ПДн (содержит голос + ФИО + контакты). Транскрипт записи — тоже ПДн.</p>
+          <span class="gloss-loc">Гл. XII</span>
+        </div>
+
+        <div class="gloss-letter">Р</div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch12">РКН</a>
+          <p class="gloss-def"><strong>РКН</strong> = Роскомнадзор (Федеральная служба по надзору в сфере связи, информационных технологий и массовых коммуникаций). Регулятор 152-ФЗ. Принимает уведомления операторов ПДн, проводит проверки, выписывает штрафы. С 2025 фокус на компаниях, использующих зарубежные облака и LLM.</p>
+          <span class="gloss-loc">Гл. XII</span>
+        </div>
+
+        <div class="gloss-letter">Т</div>
+        <div class="gloss-entry">
+          <a class="gloss-name" href="#ch12">Трансграничная передача</a>
+          <p class="gloss-def"><strong>ТПД</strong> = Трансграничная передача данных. Передача ПДн «иностранному лицу» — включая OpenAI Inc. (США), Anthropic PBC (США), Google LLC. Требует подачи уведомления в РКН за 10 рабочих дней до начала передачи. Без оформления — нарушение. Прямая отправка реальных транскриптов клиентов в OpenRouter / OpenAI — это именно она.</p>
+          <span class="gloss-loc">Гл. XII</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══ FINAL NOTE ═══ -->
+    <div class="final-note">
+      <div class="label">Главная мысль</div>
+      <p>Технологии в Актионе — стандартные для крупного российского B2B 2026 года. Нет ничего, что не покрыто публичными источниками. <strong>Твоё преимущество как новичка — не делать вид, что всё знаешь, а задавать точные вопросы в их жаргоне.</strong> Эта книга — словарь точных вопросов. Прочитай по верху сегодня. Возвращайся к главам, к которым приходишь чаще. И не молчи на стендапе — задай один вопрос отсюда первым.</p>
+    </div>
+
+  </main>
+</div>
+
+<!-- ════ COLOPHON ════ -->
+<footer class="colophon">
+  <div class="colophon-inner">
+    <h3>Colophon</h3>
+    <div class="colophon-grid">
+      <div>
+        <h4>Состав</h4>
+        <p>12 глав, ~60 терминов, по три слоя на каждый. Содержание основано на ~60 публичных источниках, разобранных через параллельный ресёрч в первый день.</p>
+      </div>
+      <div>
+        <h4>Что дальше</h4>
+        <p>В Том II войдут внутренние стандарты Актиона: имена ключевых людей, реальные имена топиков Kafka, актуальные пути в Vault. Это собирается после первой недели разговоров с командой.</p>
+      </div>
+      <div>
+        <h4>Если что-то устарело</h4>
+        <p>В технологиях шесть месяцев — целый цикл моды. Вернись к этому документу через полгода и пере-разбери разделы про LLM-провайдеров, эмбеддинги и observability.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Active TOC highlighting on scroll
+  const tocLinks = document.querySelectorAll('.toc-list a');
+  const sections = document.querySelectorAll('section.chapter');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        tocLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  sections.forEach(section => observer.observe(section));
+</script>
+
+</body>
+</html>
